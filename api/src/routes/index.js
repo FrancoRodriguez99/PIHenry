@@ -41,7 +41,9 @@ router.get("/countries", async function (req, res) {
     try {
       const api = await axios.get("https://restcountries.com/v3/all");
 
-      api.data.forEach((element) => {
+      //foreach tiene problemas con await, debo usar for
+
+      for (let i = 0; api.data.length > i; i++) {
         const {
           name,
           flags: img,
@@ -50,14 +52,16 @@ router.get("/countries", async function (req, res) {
           area: area,
           region: cont,
           cca3: id,
-        } = element;
+        } = api.data[i];
 
         // "Paises" como la Antartida no tienen capital, entonces su array esta vacio, esto causa problemas al tomar los datos, asi que tuve que dejar un
         //default en caso de ser falso
 
-        const cap = element.capital ? element.capital.join("/-/") : "none";
+        const cap = api.data[i].capital
+          ? api.data[i].capital.join(",")
+          : "none";
 
-        Country.create({
+        await Country.create({
           id: id,
           name: name.common,
           img: img[1],
@@ -67,29 +71,39 @@ router.get("/countries", async function (req, res) {
           area,
           pop,
         });
-      });
+      }
+
       instancia = false;
+
+      const x = await Country.findAll();
+
+      return res.status(200).send(x);
     } catch (error) {
       return res
         .status(400)
         .send("error tomando los datos de la api" + error.stack);
     }
-  }
-  try {
-    const x = await Country.findAll();
-    return res.status(200).send(x);
-  } catch (error) {
-    return res
-      .status(400)
-      .send("error tomando los datos de la base" + error.stack);
+  } else {
+    try {
+      const x = await Country.findAll();
+      return res.status(200).send(x);
+    } catch (error) {
+      return res
+        .status(400)
+        .send("error tomando los datos de la base" + error.stack);
+    }
   }
 });
 
 router.get("/countries/:idPais", async function (req, res) {
   const idPais = req.params.idPais;
+
   try {
-    const answer = Country.findAll({ where: { id: idPais } });
-    return res.status(201).send("Done " + answer);
+    const answer = await Country.findAll({
+      where: { id: idPais },
+      include: Tourism,
+    });
+    return res.status(201).send(answer);
   } catch (error) {
     return res.status(400).send("Error " + error);
   }
@@ -109,8 +123,9 @@ router.get("/countries:name", async function (req, res) {
 });
 */
 router.post("/activities", async function (req, res) {
-  const { name, dura, diff, temp, paisId } = req.body;
-
+  const { name, dura, diff, temp } = req.body;
+  var { paisId } = req.body;
+  paisId = paisId.split(",");
   try {
     const answer = await Tourism.create({
       name,
@@ -118,8 +133,13 @@ router.post("/activities", async function (req, res) {
       diff,
       temp,
     });
-    const link = await Tourism.addTeam(answer.id);
-    return res.status(201).send("Done");
+
+    const activity = await Tourism.findByPk(answer.id);
+    paisId.forEach(async function (x) {
+      const link1 = await activity.addCountry(x);
+    });
+
+    return res.status(200).send("Done");
   } catch (error) {
     return res.status(400).send("Error " + error);
   }
