@@ -31,10 +31,10 @@ router.get("/countries", async function (req, res) {
       });
 
       return answer.length > 0
-        ? res.status(200).send("Done" + answer)
-        : res.status(404).send("No existe ninguno con el nombre: " + namePais);
+        ? res.status(200).send(answer)
+        : res.status(460).send("No existe ninguno con el nombre: " + namePais);
     } catch (error) {
-      return res.status(400).send("Error " + error);
+      return res.status(461).send("Error " + error);
     }
   }
   if (instancia) {
@@ -75,12 +75,12 @@ router.get("/countries", async function (req, res) {
 
       instancia = false;
 
-      const x = await Country.findAll();
+      const x = await Country.findAll({ include: Tourism });
 
       return res.status(200).send(x);
     } catch (error) {
       return res
-        .status(400)
+        .status(463)
         .send("error tomando los datos de la api" + error.stack);
     }
   } else {
@@ -89,7 +89,7 @@ router.get("/countries", async function (req, res) {
       return res.status(200).send(x);
     } catch (error) {
       return res
-        .status(400)
+        .status(464)
         .send("error tomando los datos de la base" + error.stack);
     }
   }
@@ -99,8 +99,7 @@ router.get("/countries/:idPais", async function (req, res) {
   const idPais = req.params.idPais;
 
   try {
-    const answer = await Country.findAll({
-      where: { id: idPais },
+    const answer = await Country.findByPk(idPais, {
       include: Tourism,
     });
     return res.status(201).send(answer);
@@ -141,7 +140,7 @@ router.post("/activities", async function (req, res) {
 
     return res.status(200).send("Done");
   } catch (error) {
-    return res.status(400).send("Error " + error);
+    return res.status(400).send(error.message);
   }
 });
 
