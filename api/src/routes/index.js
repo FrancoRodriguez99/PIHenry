@@ -75,7 +75,7 @@ router.get("/countries", async function (req, res) {
 
       instancia = false;
 
-      const x = await Country.findAll({ include: Tourism });
+      const x = await Country.findAll({ include: ["CountryActivity"] });
 
       return res.status(200).send(x);
     } catch (error) {
@@ -138,9 +138,9 @@ router.post("/activities", async function (req, res) {
       const link1 = await activity.addCountry(x);
     });
 
-    return res.status(200).send("Done");
+    return res.status(200).send(activity);
   } catch (error) {
-    return res.status(400).send(error.message);
+    return res.status(969).send(error);
   }
 });
 
