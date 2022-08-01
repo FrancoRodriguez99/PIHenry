@@ -5,7 +5,6 @@ const { Router } = require("express");
 const { Country, Tourism } = require("../db.js");
 const axios = require("axios");
 const router = Router();
-const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 
 // Configurar los routers
@@ -13,6 +12,30 @@ const sequelize = require("sequelize");
 
 let instancia = true;
 //readme pide 2 routas countries, que hacen distintas cosas, imposible tener 2 rutas iguales, comente la otra
+/*
+router.get("/countries:name", async function (req, res) {
+  console.log("asd");
+  const namePais = req.query.name;
+  try {
+      var fixedname = namePais.toLocaleLowerCase();
+
+      const answer = await Country.findAll({
+        where: {
+          name: sequelize.where(
+            sequelize.fn("LOWER", sequelize.col("name")),
+            "LIKE",
+            "%" + fixedname + "%"
+          ),
+        },
+      });
+
+      return answer.length > 0
+        ? res.status(200).send(answer)
+        : res.status(460).send("No existe ninguno con el nombre: " + namePais);
+    } catch (error) {
+      return res.status(461).send("Error " + error);
+    }
+});*/
 
 router.get("/countries", async function (req, res) {
   const namePais = req.query.name ? req.query.name : false;
@@ -75,7 +98,7 @@ router.get("/countries", async function (req, res) {
 
       instancia = false;
 
-      const x = await Country.findAll({ include: ["CountryActivity"] });
+      const x = await Country.findAll({ include: ["tourisms"] });
 
       return res.status(200).send(x);
     } catch (error) {
@@ -85,7 +108,7 @@ router.get("/countries", async function (req, res) {
     }
   } else {
     try {
-      const x = await Country.findAll();
+      const x = await Country.findAll({ include: Tourism });
       return res.status(200).send(x);
     } catch (error) {
       return res
@@ -108,19 +131,6 @@ router.get("/countries/:idPais", async function (req, res) {
   }
 });
 
-/*
-router.get("/countries:name", async function (req, res) {
-  const namePais = req.query.name;
-  try {
-    const answer = Country.findAll({ where: { [Op.like]: namePais } });
-    return answer
-      ? res.status(201).send("Done" + answer)
-      : res.status(404).send("No existe ninguno con el nombre: " + name);
-  } catch (error) {
-    return res.status(400).send("Error " + error);
-  }
-});
-*/
 router.post("/activities", async function (req, res) {
   const { name, dura, diff, temp } = req.body;
   var { paisId } = req.body;

@@ -35,7 +35,6 @@ export const removeCountry = (arg) => {
 };
 
 export const createActivity = (arg) => (dispatch) => {
-  console.log(arg);
   return fetch(`http://localhost:3010/activities`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

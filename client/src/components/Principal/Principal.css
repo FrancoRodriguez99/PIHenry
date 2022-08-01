@@ -1,0 +1,26 @@
+#principalbox{
+background: rgba(7, 196, 230, 0.616);
+padding-top: 5vh;
+padding-bottom: 5vh;
+height: 90vh;
+
+}
+
+#paisesBox{
+    display: flex;
+    width: 80vw;
+    margin-left: 18vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+
+
+
+.nextsprev{
+    text-decoration: none;
+    color:black;
+    
+
+}

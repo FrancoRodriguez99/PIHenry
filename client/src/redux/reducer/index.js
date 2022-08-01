@@ -9,26 +9,40 @@ import {
 
 const initialState = {
   countries: [],
+  actividades: [],
   busqueda: [],
   filtrado: [],
   detalles: {},
+  creador: {},
   loading: true,
   detailsLoading: true,
 };
-
-var invert = false;
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_COUNTRIES:
       var paginaC = action.payload;
+      var actividades = [];
+      action.payload.forEach((x) => {
+        x.tourisms.forEach((d) => {
+          if (d.name) {
+            actividades.push({ name: d.name, country: x.name });
+          }
+        });
+      });
       const countr = [];
       //el readme pide que muestre los primeros 9 en la primer pagina y luego muestre de a 10...
       countr.push(paginaC.splice(0, 9));
       while (paginaC.length) {
         countr.push(paginaC.splice(0, 10));
       }
-      return { ...state, countries: countr, filtrado: countr, loading: false };
+      return {
+        ...state,
+        countries: countr,
+        filtrado: countr,
+        loading: false,
+        actividades,
+      };
     case SEARCH_COUNTRY:
       let estado = state.busqueda;
       let querry = action.payload;
@@ -59,9 +73,12 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, busqueda: removed };
 
     case CREATE_ACTIVITY:
-      return { ...state };
+      return action.payload.diff
+        ? { ...state, creador: action.payload }
+        : { ...state, creador: action.payload.parent };
 
     case GET_DETAILS:
+      console.log(action.payload);
       return {
         ...state,
         detalles: action.payload,
@@ -69,54 +86,31 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_COUNTRIES:
-      var paises = [];
+      var filtrado = [];
       state.countries.forEach((x) => {
-        paises = paises.concat(x);
+        filtrado = filtrado.concat(x);
       });
 
-      var filtrado = [];
-
       if (action.payload.continente !== "Todos") {
-        filtrado = paises.filter((x) => {
+        filtrado = filtrado.filter((x) => {
           return x.cont === action.payload.continente;
         });
-      } else {
-        filtrado = [...paises];
       }
 
-      console.log(action.payload);
-      if (action.payload.busqueda && action.payload.continente !== "Todos") {
+      if (action.payload.busqueda) {
         filtrado = filtrado.filter((x) => {
           return (
             x.name
               .toLowerCase()
               .includes(action.payload.busqueda.toLowerCase()) ||
-            x.subreg
-              .toLowerCase()
-              .includes(action.payload.busqueda.toLowerCase()) ||
             x.cap.toLowerCase().includes(action.payload.busqueda.toLowerCase())
           );
         });
-      } else if (action.payload.busqueda) {
-        filtrado = paises.filter((x) => {
-          return x.name
-            .toLowerCase()
-            .includes(
-              action.payload.busqueda.toLowerCase() ||
-                x.subreg
-                  .toLowerCase()
-                  .includes(action.payload.busqueda.toLowerCase()) ||
-                x.cap
-                  .toLowerCase()
-                  .includes(action.payload.busqueda.toLowerCase())
-            );
-        });
       }
 
-      if (invert) {
+      if (action.payload.invert) {
         if (action.payload.orden === "Poblacion") {
           filtrado.sort((a, b) => a.pop - b.pop);
-          invert = false;
         }
         if (action.payload.orden === "Nombre") {
           filtrado.sort((a, b) => {
@@ -130,12 +124,10 @@ const rootReducer = (state = initialState, action) => {
               ? 0
               : null;
           });
-          invert = false;
         }
       } else {
         if (action.payload.orden === "Poblacion") {
           filtrado.sort((a, b) => b.pop - a.pop);
-          invert = true;
         }
         if (action.payload.orden === "Nombre") {
           filtrado.sort((a, b) => {
@@ -149,8 +141,25 @@ const rootReducer = (state = initialState, action) => {
               ? 0
               : null;
           });
-          invert = true;
         }
+      }
+
+      if (action.payload.actividad !== "Todos") {
+        var paisesconxactividad = [];
+        state.actividades.forEach((x) => {
+          if (x.name === action.payload.actividad) {
+            paisesconxactividad.push(x.country);
+          }
+        });
+        filtrado = filtrado.filter((x) => {
+          let o = false;
+          paisesconxactividad.forEach((t) => {
+            if (t === x.name) {
+              o = true;
+            }
+          });
+          return o;
+        });
       }
 
       var a = [];

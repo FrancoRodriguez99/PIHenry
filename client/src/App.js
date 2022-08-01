@@ -2,7 +2,9 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import Principal from "./components/Principal/Principal";
 import ActivityCreate from "./components/ActivityCreate/ActivityCreate";
 import Details from "./components/Details/Details";
+import NavBar from "./components/NavBar/NavBar";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import "./App.css";
 
 function App() {
   return (
@@ -11,6 +13,9 @@ function App() {
         <Route exact path="/">
           <LandingPage />
         </Route>
+      </Switch>
+      <NavBar></NavBar>
+      <Switch>
         <Route exact path="/Principal/:page">
           <Principal />
         </Route>

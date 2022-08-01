@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import "./LandingPage.css";
 
 function LandingPage() {
   return (
-    <div>
-      <Link to="/Principal/0">Lets Go!</Link>
+    <div id="boxbotonPrincipal">
+      <Link to="/Principal/0" id="botonPrincipal">
+        Iniciar
+      </Link>
     </div>
   );
 }

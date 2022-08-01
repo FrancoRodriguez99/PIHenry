@@ -1,0 +1,26 @@
+#paginadobox{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    background-color: #D5D5D5;
+    height: 5vh;
+    position: absolute;
+    bottom: 0;
+
+
+}
+
+#paginadobox:hover{
+    background-color: #5E5E5E
+}
+
+.nextsprev{
+    text-decoration: none;
+    padding: 1px;
+    
+}
+
+.nextsprev:hover{
+    background-color: #333
+}
