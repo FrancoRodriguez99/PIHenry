@@ -4,13 +4,13 @@ import "./Country.css";
 
 function Country(data) {
   return (
-    <li className="countrybox">
-      <img alt="flag" src={data.data.img} className="imgflag"></img>
-      <h3>{data.data.name}</h3>
-      <p>{data.data.cont}</p>
-
-      <Link to={`/Details/${data.data.id}`}>Ver Mas</Link>
-    </li>
+    <Link to={`/Details/${data.data.id}`} className="more">
+      <li className="countrybox">
+        <img alt="flag" src={data.data.img} className="imgflag"></img>
+        <h3 className="country_h3">{data.data.name}</h3>
+        <p className="country_p">{data.data.cont}</p>
+      </li>
+    </Link>
   );
 }
 

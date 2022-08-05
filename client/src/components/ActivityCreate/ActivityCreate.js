@@ -45,11 +45,12 @@ function ActivityCreate() {
         input[i].value = "";
       }
     }
-  }, [creado, busqueda, dispatch]);
+    if (estado.busqueda[0]) {
+      dispatch(searchCountry(estado.busqueda[1]));
+    }
+  }, [creado, busqueda, estado.busqueda, dispatch]);
 
-  function handleAdd() {
-    dispatch(searchCountry(estado.busqueda[1]));
-  }
+  function handleAdd() {}
 
   function handleClick(e) {
     dispatch(removeCountry(e.target.value));
@@ -155,21 +156,24 @@ function ActivityCreate() {
             Agregar este pais a la Actividad, (Error: Minimo 4 letras)
           </button>
         )}
-
-        {busqueda.length === 0
-          ? null
-          : busqueda.map((x) => {
-              return (
-                <button
-                  key={x.id}
-                  value={x.id}
-                  onClick={(e) => handleClick(e)}
-                  type="button"
-                >
-                  {x.name}
-                </button>
-              );
-            })}
+        <div id="countrys_selected_box">
+          {busqueda.length === 0
+            ? null
+            : busqueda.map((x) => {
+                return (
+                  <div className="country_selected" key={x.id}>
+                    <button
+                      className="x"
+                      value={x.id}
+                      onClick={(e) => handleClick(e)}
+                    >
+                      X
+                    </button>
+                    <div>{x.name}</div>
+                  </div>
+                );
+              })}
+        </div>
 
         {sumbitFunction(estado, busqueda)}
 

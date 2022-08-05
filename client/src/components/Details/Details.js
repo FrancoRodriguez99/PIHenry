@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getDetails } from "../../redux/actions";
 import "./Details.css";
+import Cargando from "../Cargando/Cargando";
 
 function Details() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function Details() {
   return (
     <div id="detailsbox">
       {loading ? (
-        "Cargando..."
+        <Cargando />
       ) : (
         <div id="details">
           <img alt="flag" src={detalles.img} id="flagimg"></img>

@@ -1,18 +1,17 @@
 .countrybox{
-    height: 20vh;
+    height: 100%;
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: rgba(2, 129, 151, 0.616);;
+    background-color: rgba(10, 126, 103);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 1.25vh;
-    margin-bottom: 1.25vh;
-    width: 24.16;
-    margin-left:1.25vh;
-    margin-right: 1.25vh;
+    justify-content: center;
+     width: 100%;
     border-style: inset;
+    
+    
 }
 
 .imgflag{
@@ -22,3 +21,70 @@
     border-color: rgb(8, 8, 8);
     border-style: inset;
 }
+
+.country_h3{
+    margin: 1em;
+}
+
+.countrybox:hover{
+    height: 20vh;
+    list-style-type: none;
+    transform: scale(1.2);
+    margin: 0;
+    padding: 0;
+    background-color: rgb(15, 189, 154);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.25vh;
+    margin-bottom: 1.25vh;
+    width: 24.16;
+    margin-left:1.25vh;
+    margin-right: 1.25vh;
+    border-style: outset;
+    border-color: rgb(6, 70, 57);
+    border-radius: 5%;
+
+    
+}
+
+.more{
+    text-decoration: none;
+    color: white;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(10, 126, 103);
+    
+    margin-top: 1.25vh;
+    margin-bottom: 1.25vh;
+    width: 24.16;
+    height: 18vh;
+    margin-left:1.25vh;
+    margin-right: 1.25vh;
+    border-style: inset;
+    border-color: rgb(6, 70, 57);
+    border-radius: 5%;
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .imgflag {
+      background-color: lightblue;
+    }
+    .country_h3 {
+        margin: 0;
+      }
+    .country_p {
+        display: none;
+      }
+    .more{
+        margin: 0.5em;
+        padding: 0;
+        width: auto;
+        height: auto;
+        margin-left:0;
+        margin-right: 0;
+      }
+   
+  }

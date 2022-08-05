@@ -7,9 +7,14 @@
     left: 0;
     width: 18vw;
     margin-left:0.5vw;
-    height: 50vh;
+    height: 45vh;
     padding-top: 10vh;
     padding-bottom: 30vh;
+    background-color: rgba(10, 126, 103);
+}
+
+#filtrobox:hover{
+    background-color: rgb(15, 189, 154);
 }
 
 .inputfiltro{
@@ -17,7 +22,118 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: inset;
-    background-color: rgba(7, 197, 230, 0.911);
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 900;
+    padding: 0.5em;
+    text-align: center;
 
 }
+
+.buscar{
+    border-style: none;
+    background-color: aquamarine;
+    text-align: center;
+}
+.buscar:focus{
+    outline: none;
+    text-align: center;
+}
+
+#filtrobox p{
+
+    margin-bottom:1em ;
+    padding: 0.3em;
+    background-color: rgb(12, 143, 117);
+    border: inset;
+    border-color: rgb(8, 99, 81);;
+    color: white;
+
+}
+
+#filtrobox select{
+    background-color: rgb(12, 143, 117);
+  color: white;
+  padding: 12px;
+  width: 250px;
+  border: none;
+  font-size: 20px;
+  box-shadow: 0 5px 25px rgb(12, 143, 117);
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+  text-align: center;
+}
+
+.inputfiltro button{
+        background-color: rgb(12, 143, 117);
+      color: white;
+      padding: 12px;
+      width: 250px;
+      border: none;
+      font-size: 20px;
+      box-shadow: 0 5px 25px rgb(12, 143, 117);
+      -webkit-appearance: button;
+      appearance: button;
+      outline: none;
+      text-align: center;
+    
+    
+}
+
+.line{
+    
+    width: 100%;
+    border-top: solid;
+    margin: 1em;
+
+    
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    #filtrobox{
+    width: 18vw;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 60%;
+    display: flex;
+    justify-content: flex-start;
+    }
+
+    .inputfiltro{
+        padding: 0;
+    }
+
+    #filtrobox p{
+
+        margin-bottom: 0;
+        padding: 0;
+        font-size: 10px;
+    
+    }
+
+    .inputfiltro button{
+      padding: 0;
+      width: auto;
+      
+    }
+
+    #filtrobox select{
+      padding: 0;
+      width: auto;
+      border: none;
+      font-size: 10px;
+    }
+
+    .inputfiltro button{
+       
+      padding: 0;
+      width: 80%;
+      font-size: 10px;
+}
+
+.buscar{
+    width: 80%;
+}
+  }

@@ -78,7 +78,6 @@ const rootReducer = (state = initialState, action) => {
         : { ...state, creador: action.payload.parent };
 
     case GET_DETAILS:
-      console.log(action.payload);
       return {
         ...state,
         detalles: action.payload,

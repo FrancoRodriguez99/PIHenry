@@ -51,7 +51,9 @@ export const sumbitFunction = (estado, busqueda) => {
       : false;
 
   return data ? (
-    <button type="submit">Crear</button>
+    <div class="button-borders">
+      <button class="primary-button"> Crear</button>
+    </div>
   ) : (
     <button type="button" disabled>
       Completa todos los Datos Primero

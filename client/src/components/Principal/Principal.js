@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAllCountries, cleanLoading } from "../../redux/actions";
 import "./Principal.css";
+import Cargando from "../Cargando/Cargando";
 
 function Principal() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function Principal() {
   return (
     <div id="principalbox">
       {loading ? (
-        "Cargando..."
+        <Cargando />
       ) : (
         <div>
           <Filtro />

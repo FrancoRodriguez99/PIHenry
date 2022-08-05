@@ -1,5 +1,5 @@
 #principalbox{
-background: rgba(7, 196, 230, 0.616);
+background: rgb(19, 36, 33);
 padding-top: 5vh;
 padding-bottom: 5vh;
 height: 90vh;
@@ -14,13 +14,19 @@ height: 90vh;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-
-
-
-
 .nextsprev{
     text-decoration: none;
     color:black;
     
 
 }
+
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+    #paisesBox{
+        margin-left: 10vw;
+    }
+  }
+

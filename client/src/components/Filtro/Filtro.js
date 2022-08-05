@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, Redirect } from "react-router-dom";
 import { filterCountries } from "../../redux/actions";
 import "./Filtro.css";
 
 function LandingPage() {
   const dispatch = useDispatch();
+  const { page } = useParams();
   const [filtro, setFiltro] = useState({
     continente: "Todos",
     orden: "nada",
@@ -14,6 +16,8 @@ function LandingPage() {
   });
   const actividades = useSelector((state) => state.actividades);
   const dones = [];
+
+  const filtrado = useSelector((state) => state.filtrado.length);
 
   useEffect(() => {
     dispatch(filterCountries(filtro));
@@ -40,12 +44,20 @@ function LandingPage() {
   }
   return (
     <div id="filtrobox">
-      <input
-        type="text"
-        onChange={(e) => handleSearch(e)}
-        placeholder="Buscar"
-        className="inputfiltro"
-      ></input>
+      {page > filtrado || filtrado === 1 ? (
+        <Redirect to="/Principal/0" />
+      ) : null}
+      <span className="line"></span>
+      <div className="inputfiltro">
+        <p>Buscar Pais</p>
+        <input
+          type="text"
+          onChange={(e) => handleSearch(e)}
+          placeholder="Buscar"
+          className="buscar"
+        ></input>
+      </div>
+      <span className="line"></span>
       <div className="inputfiltro">
         <p>Filtrar por Continente</p>
         <select onChange={(e) => handleContinente(e)}>
@@ -58,6 +70,7 @@ function LandingPage() {
           <option value="Antarctic">Antartida</option>
         </select>
       </div>
+      <span className="line"></span>
       <div className="inputfiltro">
         <p>Filtrar por Actividad Turistica</p>
         <select onChange={(e) => handleActividad(e)}>
@@ -76,11 +89,13 @@ function LandingPage() {
             : null}
         </select>
       </div>
+      <span className="line"></span>
       <div className="inputfiltro">
-        Ordenar Ascendentemente/Descendentemente por
+        <p>Ordenar Asc/Des por:</p>
         <button onClick={() => handleOrden("Poblacion")}>Población</button>
         <button onClick={() => handleOrden("Nombre")}>Nombre</button>
       </div>
+      <span className="line"></span>
     </div>
   );
 }

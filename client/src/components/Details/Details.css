@@ -1,8 +1,10 @@
 #detailsbox{
     padding-top: 5vh;
-    background: rgba(7, 196, 230, 0.616);
+    background: rgb(19, 36, 33);
     height: 95vh;
     width: 100%;
+    color: white;
+    font-family: 'Chakra Petch', sans-serif;
    
 }
 
@@ -38,6 +40,7 @@
     flex-direction: column;
     padding: 2vh;
     align-items: center;
+    border-style: solid;
     
 }
 
@@ -54,8 +57,10 @@
     border-style: solid;
     text-align: center;
     border-radius: 30%;
+    background-color: rgba(20, 236, 118, 0.336);
+
 }
 
 #backbtn:hover{
-    background-color: rgba(19, 194, 98, 0.336);
+    background-color: rgba(10, 77, 40, 0.336);
 }

@@ -8,7 +8,7 @@ function Paginado(data) {
   function handleChange(event) {
     if (
       typeof parseInt(event.target.value) === "number" &&
-      event.target.value > 0 &&
+      event.target.value >= 0 &&
       event.target.value <= data.largo - 1
     ) {
       setGoToPage(`/Principal/${event.target.value}`);
@@ -43,13 +43,14 @@ function Paginado(data) {
       <Link to={one("ant")} className="nextsprev">
         Anterior
       </Link>
-      <div>
+      <div className="phonemode">
         <Link to={gotopage} className="nextsprev">
           ir A:
         </Link>
         <input
           onChange={(event) => handleChange(event)}
           placeholder={`Ultima Pagina es ${data.largo - 1}`}
+          className="inputpaginado"
         ></input>
       </div>
 
