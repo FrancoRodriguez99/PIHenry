@@ -45,12 +45,12 @@ function ActivityCreate() {
         input[i].value = "";
       }
     }
-    if (estado.busqueda[0]) {
-      dispatch(searchCountry(estado.busqueda[1]));
-    }
-  }, [creado, busqueda, estado.busqueda, dispatch]);
+  }, [creado, busqueda, dispatch]);
 
-  function handleAdd() {}
+  function handleAdd() {
+    console.log(estado.busqueda);
+    dispatch(searchCountry(estado.busqueda[1]));
+  }
 
   function handleClick(e) {
     dispatch(removeCountry(e.target.value));

@@ -5,6 +5,7 @@ import {
   CREATE_ACTIVITY,
   GET_DETAILS,
   FILTER_COUNTRIES,
+  CLEAN,
 } from "../actions/index";
 
 const initialState = {
@@ -20,6 +21,9 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAN:
+      return { ...state, detalles: {}, loading: true };
+
     case GET_ALL_COUNTRIES:
       var paginaC = action.payload;
       var actividades = [];

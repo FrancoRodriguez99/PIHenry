@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getDetails } from "../../redux/actions";
+import { getDetails, clean } from "../../redux/actions";
 import "./Details.css";
 import Cargando from "../Cargando/Cargando";
 
@@ -9,15 +9,16 @@ function Details() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const detalles = useSelector((state) => state.detalles);
-  const loading = useSelector((state) => state.detailsLoading);
 
   useEffect(() => {
     dispatch(getDetails(id));
+
+    return dispatch(clean());
   }, [id, dispatch]);
 
   return (
     <div id="detailsbox">
-      {loading ? (
+      {!detalles.tourisms ? (
         <Cargando />
       ) : (
         <div id="details">

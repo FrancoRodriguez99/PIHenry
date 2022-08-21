@@ -5,6 +5,7 @@ export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
 export const GET_DETAILS = "GET_DETAILS";
 export const FILTER_COUNTRIES = "FILTER_COUNTRIES";
 export const CLEAN_LOADING = "CLEAN_LOADING";
+export const CLEAN = "CLEAN";
 
 export const getAllCountries = () => (dispatch) => {
   return fetch("http://localhost:3010/countries", {
@@ -16,6 +17,10 @@ export const getAllCountries = () => (dispatch) => {
       dispatch({ type: "GET_ALL_COUNTRIES", payload: json });
     })
     .catch((error) => console.log(error));
+};
+
+export const clean = () => {
+  return { type: "CLEAN" };
 };
 
 export const searchCountry = (arg) => (dispatch) => {
