@@ -8,7 +8,7 @@ export const CLEAN_LOADING = "CLEAN_LOADING";
 export const CLEAN = "CLEAN";
 
 export const getAllCountries = () => (dispatch) => {
-  return fetch("http://localhost:3010/countries", {
+  return fetch("https://pihenry-dr10.onrender.com/countries", {
     method: "GET",
     redirect: "follow",
   })
@@ -24,7 +24,7 @@ export const clean = () => {
 };
 
 export const searchCountry = (arg) => (dispatch) => {
-  return fetch(`http://localhost:3010/countries?name=${arg}`, {
+  return fetch(`https://pihenry-dr10.onrender.com/countries?name=${arg}`, {
     method: "GET",
     redirect: "follow",
   })
@@ -40,7 +40,7 @@ export const removeCountry = (arg) => {
 };
 
 export const createActivity = (arg) => (dispatch) => {
-  return fetch(`http://localhost:3010/activities`, {
+  return fetch(`https://pihenry-dr10.onrender.com/activities`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(arg),
@@ -54,7 +54,7 @@ export const createActivity = (arg) => (dispatch) => {
 };
 
 export const getDetails = (arg) => (dispatch) => {
-  return fetch(`http://localhost:3010/countries/${arg}`, {
+  return fetch(`https://pihenry-dr10.onrender.com/countries/${arg}`, {
     method: "GET",
     redirect: "follow",
   })
